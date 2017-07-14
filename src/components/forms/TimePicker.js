@@ -28,6 +28,12 @@ class TimePicker extends Component {
     return this.state.time;
   }
 
+  resetTime() {
+    this.setState({
+      time: ''
+    })
+  }
+
   handleClick(text) {
     this.setState({
       time : text

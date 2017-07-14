@@ -6,12 +6,21 @@ class AddTask extends Component {
   constructor(props) {
     super(props);
   }
+
+  clearForm() {
+    this.refs.task.value = '';
+    this.refs.type.value = '';
+    this.refs.from.resetTime();
+    this.refs.to.resetTime();
+  }
+
   handleClick() {
     console.log("inside handleClick");
     if (this.props.handleAdd) {
       let task = new Task(null, this.refs.task.value, this.refs.type.value, this.refs.from.getTime(), this.refs.to.getTime());
       console.log(task);
       console.log(task.value);
+      this.clearForm();
       this.props.handleAdd(task.value);
     } else if (this.props.handleEdit) {
       let task = new Task(this.props.task.id, this.refs.task.value, this.refs.type.value, this.refs.from.getTime(), this.refs.to.getTime());
