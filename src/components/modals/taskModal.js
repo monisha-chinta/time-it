@@ -7,7 +7,7 @@ class TaskModal extends Component {
     super(props);
     this.state = {
       show: false,
-      task: null
+      task: props.task
     }
   }
   close() {
@@ -18,8 +18,8 @@ class TaskModal extends Component {
 
   open(task) {
     this.setState({
-      show: true,
-      task: task
+      show: true
+      // task: task
     });
   }
 
@@ -28,7 +28,7 @@ class TaskModal extends Component {
   }
 
   render() {
-    console.log(this.state.task);
+    console.log(this.props.task);
     return (
       <div>
         <Modal show={this.state.show} onHide={this.close.bind(this)} bsSize="large">
@@ -36,7 +36,7 @@ class TaskModal extends Component {
             <Modal.Title id="contained-modal-title-lg">{this.props.title}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <AddTask task={this.state.task} handleAction={this.handleAction.bind(this)} />
+            <AddTask task={this.props.task} handleAction={this.handleAction.bind(this)} />
           </Modal.Body>
         </Modal>
       </div>

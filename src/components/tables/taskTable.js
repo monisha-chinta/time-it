@@ -5,6 +5,9 @@ import TaskModal from '../modals/taskModal'
 class TaskTable extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      selectedTask: null
+    }
   }
 
   handleDeleteTask(userId, id) {
@@ -17,6 +20,9 @@ class TaskTable extends Component {
   }
 
   handleEditTask(task) {
+    this.setState({
+      selectedTask: task
+    });
     this.refs.modal.open(task);
   }
 
@@ -46,7 +52,7 @@ class TaskTable extends Component {
             { rows }
           </tbody>
         </table>
-        <TaskModal ref="modal" handleAction={this.handleUpdateTask.bind(this)} title="Update Task" />
+        <TaskModal ref="modal" task={this.state.selectedTask} handleAction={this.handleUpdateTask.bind(this)} title="Update Task" />
       </div>
     );
   }

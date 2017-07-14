@@ -43,12 +43,12 @@ class TextInput extends Component {
   }
 
   render() {
-    let { defaultValue, width, text } = this.props;
+    const { defaultValue, width, text } = this.props;
     let name = text.toLowerCase();
     return (
       <div className={'form-group ' + width + this.state.errorClass}>
         <label className="sr-only" for="task">{text}</label>
-        <input type="text" ref="inputField" defaultValue={this.state.defaultValue}
+        <input type="text" ref="inputField" defaultValue={this.state.value}
                className="form-control add-task-input"
                placeholder={text}
                onChange={this.onChange.bind(this)}
