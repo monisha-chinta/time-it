@@ -80,7 +80,7 @@ class AddTask extends Component {
           <TimePicker defaultValue={task.fromtime} ref="from" />
           <TimePicker defaultValue={task.totime} ref="to" />
           <div className="form-group col-md-1">
-            <button onClick={this.handleClick.bind(this)} className="btn btn-default">{ buttonText }</button>
+            <button onClick={this.handleClick.bind(this)} className="btn modal-button">{ buttonText }</button>
           </div>
         </div>
         <div className="row">

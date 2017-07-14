@@ -37,7 +37,7 @@ class TaskTable extends Component {
         )
       });
     } else {
-      rows = <h2 className="no-data">No tasks!!</h2>
+      rows = <h3 className="no-data">No tasks!!</h3>
     }
 
     var nameHeader;
@@ -47,7 +47,7 @@ class TaskTable extends Component {
 
     return (
       <div>
-        <table className="table">
+        <table className="table table-hover">
           <tbody>
             { rows }
           </tbody>

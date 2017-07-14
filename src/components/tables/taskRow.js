@@ -35,7 +35,7 @@ class TaskRow extends Component {
       <tr>
         {nameCol}
         <td className={nameCol ? 'col-md-5 text-left' : 'col-md-6 text-left'}>{task.taskname}</td>
-        <td className="col-md-2 text-left">{task.tasktype}</td>
+        <td className="col-md-2 text-left"><i className="fa fa-tag" aria-hidden="true"></i> {task.tasktype}</td>
         <td className="col-md-2 text-left">{time}</td>
         <td className={nameCol ? 'hide' : 'col-md-1'}>
           <button className={"btn btn-default action-button "+ buttonClass} onClick={this.editTask.bind(this)}>

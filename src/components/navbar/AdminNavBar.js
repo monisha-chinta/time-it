@@ -19,7 +19,7 @@ class AdminNavBar extends Component {
   render() {
     var addTask;
     if(this.props.showAddTask) {
-      addTask = <li><a href="#" className="add-task-btn" onClick={ this.openModal.bind(this) }>Add Task</a></li>
+      addTask = <li><a href="#" className="add-task-btn" onClick={ this.openModal.bind(this) }><i className="fa fa-plus" aria-hidden="true"></i> Task</a></li>
     }
     var userid = this.props.user ? this.props.user.userid : '';
     var displaypicture = this.props.user ? this.props.user.displaypicture : '';

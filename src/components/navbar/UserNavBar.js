@@ -32,7 +32,7 @@ class UserNavBar extends Component {
           <div id="navbar" className="collapse navbar-collapse">
             <ul className="nav navbar-nav navbar-right">
               <li>
-                <a href="#" className="add-task-btn" onClick={ this.openModal.bind(this) }>Add Task</a>
+                <a href="#" className="add-task-btn" onClick={ this.openModal.bind(this) }><i className="fa fa-plus" aria-hidden="true"></i> Task</a>
               </li>
               <li className="navbar-profile-pic"><img src={this.props.user.displaypicture} width={40} height={40} /></li>
               <li>
