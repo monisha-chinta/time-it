@@ -6,6 +6,9 @@ import TextInput from './TextInput';
 class AddTask extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      error: ''
+    }
   }
 
   clearForm() {
@@ -21,6 +24,10 @@ class AddTask extends Component {
     })
   }
 
+  isValid(task) {
+    return task.taskType && task.taskName && task.toTime && task.fromTime;
+  }
+
   handleClick() {
     console.log("inside handleClick");
     let task;
@@ -28,7 +35,7 @@ class AddTask extends Component {
       task = new Task(null, this.refs.task.getValue(), this.refs.type.getValue(), this.refs.from.getTime(), this.refs.to.getTime());
       console.log(task);
       console.log(task.value);
-      this.clearForm();
+      //this.clearForm();
       //this.props.handleAdd(task.value);
     } else {
       task = new Task(this.props.task.id, this.refs.task.getValue(), this.refs.type.getValue(), this.refs.from.getTime(), this.refs.to.getTime());
@@ -36,7 +43,14 @@ class AddTask extends Component {
       console.log(task.value);
       //this.props.handleEdit(task.value);
     }
-    this.props.handleAction(task.value);
+    console.log(this.isValid(task.value));
+    if(this.isValid(task.value)) {
+      this.props.handleAction(task.value);
+    } else {
+      this.setState({
+        error: <span><sup>*</sup> All fields are mandatory</span>
+      })
+    }
   }
 
   formTask() {
@@ -59,19 +73,20 @@ class AddTask extends Component {
       buttonText = 'Add';
     }
     return (
-      <div className="form-inline row add-task-form">
-        <TextInput ref="task" defaultValue={task.taskname} width="col-md-6" text="Task"/>
-        <TextInput ref="type" defaultValue={task.tasktype} width="col-md-2" text="Tag"/>
-        <div className="form-group col-md-1 add-task-time">
-          <label className="sr-only" for="from">From</label>
+      <div>
+        <div className="form-inline row add-task-form">
+          <TextInput ref="task" defaultValue={task.taskname} width="col-md-6" text="Task"/>
+          <TextInput ref="type" defaultValue={task.tasktype} width="col-md-2" text="Tag"/>
           <TimePicker defaultValue={task.fromtime} ref="from" />
-        </div>
-        <div className="form-group col-md-1 add-task-time">
-          <label className="sr-only" for="to">To</label>
           <TimePicker defaultValue={task.totime} ref="to" />
+          <div className="form-group col-md-1">
+            <button onClick={this.handleClick.bind(this)} className="btn btn-default">{ buttonText }</button>
+          </div>
         </div>
-        <div className="form-group col-md-1">
-          <button onClick={this.handleClick.bind(this)} className="btn btn-default">{ buttonText }</button>
+        <div className="row">
+          <div className="col-md-12 modal-error">
+            <span className="text-danger">{this.state.error}</span>
+          </div>
         </div>
       </div>
     );
@@ -92,5 +107,12 @@ class AddTask extends Component {
 
 // <input type="text" ref="from" defaultValue={task.fromtime} className="form-control" placeholder="From" name="from" />
 
-
+// <div className="form-group col-md-1 add-task-time">
+//   <label className="sr-only" for="from">From</label>
+//   <TimePicker defaultValue={task.fromtime} ref="from" />
+// </div>
+// <div className="form-group col-md-1 add-task-time">
+//   <label className="sr-only" for="to">To</label>
+//   <TimePicker defaultValue={task.totime} ref="to" />
+// </div>
 export default AddTask;

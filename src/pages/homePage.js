@@ -147,7 +147,7 @@ class HomePage extends Component {
                  </div>
                </div>
              </div>
-             <TaskModal ref="modal" handleAction={this.handleAddTask.bind(this)} />
+             <TaskModal ref="modal" handleAction={this.handleAddTask.bind(this)} title="Add Task" />
         </div>
       </div>
     );

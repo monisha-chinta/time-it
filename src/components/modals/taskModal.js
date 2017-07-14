@@ -33,7 +33,7 @@ class TaskModal extends Component {
       <div>
         <Modal show={this.state.show} onHide={this.close.bind(this)} bsSize="large">
           <Modal.Header closeButton>
-            <Modal.Title id="contained-modal-title-lg">Update</Modal.Title>
+            <Modal.Title id="contained-modal-title-lg">{this.props.title}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <AddTask task={this.state.task} handleAction={this.handleAction.bind(this)} />

@@ -41,7 +41,7 @@ class TaskTable extends Component {
             { rows }
           </tbody>
         </table>
-        <TaskModal ref="modal" handleAction={this.handleUpdateTask.bind(this)} />
+        <TaskModal ref="modal" handleAction={this.handleUpdateTask.bind(this)} title="Update Task" />
       </div>
     );
   }

@@ -3,7 +3,6 @@ import { getTimeRange } from '../../constants/TimeRange';
 import { formatTime } from '../../utils/TimeUtils';
 
 class TimeRangeLi extends Component {
-
   handleClick(e) {
     e.preventDefault();
     this.props.handleClick(this.props.text);
@@ -21,8 +20,31 @@ class TimePicker extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      time: props.defaultValue ? formatTime(props.defaultValue) : ''
+      time: props.defaultValue ? formatTime(props.defaultValue) : '',
+      errorClass: ''
     };
+  }
+
+  checkStatus(e) {
+    let value = e.target.value.trim();
+    if(value.length == 0) {
+      this.setState({
+        errorClass: ' has-error had-feedback'
+      })
+    } else {
+      this.setState({
+        errorClass: '',
+        time: value
+      })
+    }
+  }
+
+  onChange(e) {
+    this.checkStatus(e);
+  }
+
+  onBlur(e) {
+    this.checkStatus(e);
   }
 
   getTime() {
@@ -36,9 +58,19 @@ class TimePicker extends Component {
   }
 
   handleClick(text) {
-    this.setState({
-      time : text
-    });
+    if(text.length == 0) {
+      this.setState({
+        errorClass: ' has-error had-feedback'
+      })
+    } else {
+      this.setState({
+        errorClass: '',
+        time: text
+      })
+    }
+    // this.setState({
+    //   time : text
+    // });
   }
 
   render() {
@@ -48,11 +80,19 @@ class TimePicker extends Component {
       )
     })
     return (
-      <div className="dropdown">
-        <input type="text" defaultValue={this.state.time} value={this.state.time} className="form-control dropdown-toggle add-task-input" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" />
-        <ul className="dropdown-menu time-picker">
-          {timeRange}
-        </ul>
+      <div className={'form-group col-md-1 add-task-time ' + this.state.errorClass}>
+        <label className="sr-only" for="to">To</label>
+        <div className="dropdown">
+          <input type="text" defaultValue={this.state.time}
+                 value={this.state.time}
+                 className="form-control dropdown-toggle add-task-input"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                 onChange={this.onChange.bind(this)}
+                 onBlur={this.onBlur.bind(this)} />
+          <ul className="dropdown-menu time-picker">
+            {timeRange}
+          </ul>
+        </div>
       </div>
     );
   }

@@ -67,8 +67,8 @@ body {
 }
 
 .form-inline div {
-  padding-left: 2px;
-  padding-right: 4px;
+  padding-left: 1px;
+  padding-right: 2px;
 }
 
 .add-task-time{
@@ -77,9 +77,14 @@ body {
 
 .add-task-form {
   margin-left: 15px !important ;
-  margin-right: -50px !important ;
+  margin-right: -60px !important ;
 }
 
 .center {
   text-align: center;
+}
+
+.modal-error {
+  padding-top: 5px;
+  margin-left: 20px;
 }
