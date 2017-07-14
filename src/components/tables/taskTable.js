@@ -23,11 +23,16 @@ class TaskTable extends Component {
   render() {
     const {tasks, isToday} = this.props;
 
-    var rows = tasks.map((task) => {
-      return (
-        <TaskRow task={task} deleteTask={this.handleDeleteTask.bind(this)} editTask={this.handleEditTask.bind(this)} isToday={isToday} />
-      )
-    });
+    var rows;
+    if(tasks.length > 0) {
+      rows = tasks.map((task) => {
+        return (
+          <TaskRow task={task} deleteTask={this.handleDeleteTask.bind(this)} editTask={this.handleEditTask.bind(this)} isToday={isToday} />
+        )
+      });
+    } else {
+      rows = <h2 className="no-data">No tasks!!</h2>
+    }
 
     var nameHeader;
     if(tasks.length > 0 && tasks[0].name) {

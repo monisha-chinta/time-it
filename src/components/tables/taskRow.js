@@ -20,8 +20,8 @@ class TaskRow extends Component {
     var nameCol;
     if(task.name) {
       nameCol = (
-        <td className="col-md-2">
-          <img src={task.displaypicture} height={30} width={30} />
+        <td className="col-md-2 text-left">
+          <img src={task.displaypicture} height={30} width={30} className="user-pic" />
           <span>{task.name}</span>
         </td>
       )
@@ -34,9 +34,9 @@ class TaskRow extends Component {
     return (
       <tr>
         {nameCol}
-        <td className={nameCol ? 'col-md-5' : 'col-md-6'}>{task.taskname}</td>
-        <td className="col-md-2">{task.tasktype}</td>
-        <td className="col-md-2">{time}</td>
+        <td className={nameCol ? 'col-md-5 text-left' : 'col-md-6 text-left'}>{task.taskname}</td>
+        <td className="col-md-2 text-left">{task.tasktype}</td>
+        <td className="col-md-2 text-left">{time}</td>
         <td className={nameCol ? 'hide' : 'col-md-1'}>
           <button className={"btn btn-default action-button "+ buttonClass} onClick={this.editTask.bind(this)}>
             <i className="fa fa-pencil" aria-hidden="true"></i>

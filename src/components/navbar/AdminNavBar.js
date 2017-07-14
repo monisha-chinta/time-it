@@ -19,10 +19,14 @@ class AdminNavBar extends Component {
   render() {
     var addTask;
     if(this.props.showAddTask) {
-      addTask = <li><a href="#" onClick={ this.openModal.bind(this) }>Add Task</a></li>
+      addTask = <li><a href="#" className="add-task-btn" onClick={ this.openModal.bind(this) }>Add Task</a></li>
     }
     var userid = this.props.user ? this.props.user.userid : '';
     var displaypicture = this.props.user ? this.props.user.displaypicture : '';
+
+
+    var usersClass = this.props.url.indexOf('home') != -1 ? 'active' : '';
+    var myTasksClass = this.props.url.indexOf('admin') != -1 ? 'active' : '';
 
     return (
       <nav className="navbar navbar-inverse navbar-fixed-top">
@@ -34,18 +38,12 @@ class AdminNavBar extends Component {
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
             </button>
-            <a className="navbar-brand" href="#">TimeIt</a>
+            <Link className="navbar-brand" to={'/'}>TimeIt</Link>
           </div>
           <div className="collapse navbar-collapse" id="navbar">
             <ul className="nav navbar-nav">
-              <li className="active"><Link to={'/home/'+userid}>My Tasks</Link></li>
-              <li className="dropdown">
-                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Users<span className="caret"></span></a>
-                <ul className="dropdown-menu">
-                  <li><Link to={'/admin/'+userid+'/all'}>All Users</Link></li>
-                  <li><a href="#">Get User</a></li>
-                </ul>
-              </li>
+              <li className={usersClass}><Link to={'/home/'+userid}>My Tasks</Link></li>
+              <li className={myTasksClass}><Link to={'/admin/'+userid+'/all'}>Users</Link></li>
             </ul>
             <ul className="nav navbar-nav navbar-right">
               { addTask }

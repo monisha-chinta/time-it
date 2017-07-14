@@ -114,7 +114,7 @@ class HomePage extends Component {
     var navbar;
 
     if(this.state.user && this.state.user.isAdmin) {
-        navbar = <AdminNavBar showAddTask={true} user={this.state.user} openModal={this.openModal.bind(this)}  />
+        navbar = <AdminNavBar url={this.props.location.pathname} showAddTask={true} user={this.state.user} openModal={this.openModal.bind(this)}  />
     } else if(this.state.user) {
         navbar = <UserNavBar user={this.state.user} openModal={this.openModal.bind(this)} />
     }
@@ -137,7 +137,7 @@ class HomePage extends Component {
                      <div className="col-md-12 date-header-div">
                        <h2 className="date-header">{ this.state.currentDate.format('dddd, MMMM Do YYYY') }</h2>
                      </div>
-                     <div className="col-md-12">
+                     <div className="col-md-12 center">
                         <TaskTable tasks={this.props.tasks} handleDelete={this.handleDeleteTask.bind(this)} handleUpdate={this.handleUpdateTask.bind(this)} isToday={flag} />
                      </div>
                    </div>

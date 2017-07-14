@@ -73,11 +73,11 @@ class UsersTasksPage extends Component {
 
     return (
       <div>
-        <AdminNavBar user={this.state.user} showAddTask={false}/>
+        <AdminNavBar url={this.props.location.pathname} user={this.state.user} showAddTask={false}/>
         <div className="container">
              <div className="starter-template">
                <div className="row">
-                 <div className="col-md-1" onClick={this.loadPrevious.bind(this)}>
+                 <div className="col-md-1 center" onClick={this.loadPrevious.bind(this)}>
                    <span><i className="fa fa-caret-left fa-4x" aria-hidden="true"></i></span>
                  </div>
                  <div className="col-md-10">
@@ -85,12 +85,12 @@ class UsersTasksPage extends Component {
                      <div className="col-md-12 date-header-div">
                        <h2 className="date-header">{ this.state.currentDate.format('dddd, MMMM Do YYYY') }</h2>
                      </div>
-                     <div className="col-md-12">
+                     <div className="col-md-12 center">
                         <TaskTable tasks={this.props.tasks} />
                      </div>
                    </div>
                  </div>
-                 <div className={'col-md-1 ' + nextIconClass} onClick={this.loadNext.bind(this)} className={flag ? 'hide' : ''}>
+                 <div className={'col-md-1 center ' + nextIconClass} onClick={this.loadNext.bind(this)}>
                    <span><i className="fa fa-caret-right fa-4x" aria-hidden="true"></i></span>
                  </div>
                </div>

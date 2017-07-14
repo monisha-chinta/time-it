@@ -88,3 +88,15 @@ body {
   padding-top: 5px;
   margin-left: 20px;
 }
+
+.add-task-btn {
+  outline: none !important;
+}
+
+.user-pic {
+  margin-right: 5px;
+}
+
+.no-data {
+  font-weight: 100;
+}

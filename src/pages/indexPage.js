@@ -4,6 +4,14 @@ import { Link } from 'react-router-dom';
 import { addUser } from '../actions/userAction';
 
 class IndexPage extends Component {
+
+  componentDidMount() {
+    var user = JSON.parse(localStorage.getItem('TimeIt-User'));
+    if(user) {
+      this.props.history.push('/home/' + user.userid);
+    }
+  }
+
   login(){
     var that = this;
     const FB = window.FB;
