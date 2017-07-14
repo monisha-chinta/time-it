@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { getTimeRange } from '../../constants/TimeRange';
+import { formatTime } from '../../utils/TimeUtils';
 
 class TimeRangeLi extends Component {
 
@@ -20,7 +21,7 @@ class TimePicker extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      time: props.defaultValue
+      time: props.defaultValue ? formatTime(props.defaultValue) : ''
     };
   }
 
