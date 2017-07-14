@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+import { addUser } from '../actions/userAction';
 
 class IndexPage extends Component {
   login(){
@@ -11,10 +12,22 @@ class IndexPage extends Component {
       console.log(loginResponse);
       if (loginResponse.status === 'connected') {
         FB.api("https://graph.facebook.com/"+loginResponse.authResponse.userID+"?fields=id,name,email,picture", function(response){
-          // that.user = new User(response.id, response.name, response.picture.data.url);
-          // that.getUser(that.user);
           console.log(response);
-          that.props.history.push('/home/' + response.id);
+          addUser(response).then((res) => {
+            console.log("UserDetails");
+            console.log(res.data[0]);
+            localStorage.setItem('TimeIt-User', JSON.stringify(res.data[0]));
+            that.props.history.push('/home/' + response.id);
+            // if(res.data[0].isAdmin) {
+            //
+            //   that.props.history.push('/adminHome/' + response.id);
+            // } else {
+            //   that.props.history.push('/home/' + response.id);
+            // }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
         });
       } else {
         console.log("not connected");

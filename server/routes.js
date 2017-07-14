@@ -22,6 +22,7 @@ app.get('/user/:userId', function(req, res) {
 });
 
 app.post('/user', function(req, res) {
+  console.log("in post");
   console.log(req.body);
   const newUser = {
     userId: req.body.userId,
@@ -44,34 +45,31 @@ app.post('/user', function(req, res) {
 app.get('/home/:userId/:date', function(req, res) {
   var userId = req.params.userId;
   var curr_date = req.params.date;
-  // var date = new Date();
-  // var curr_date = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
-  console.log(userId +" , " +curr_date);
-  //admin
-  if(userId == '1780015962028178') {
-    q.getAllUsers('tasks', curr_date, (err, result) => {
-        if (err) {
-          res.status(404).send({
-            message: 'Someting went wrong with database'
-          });
-        } else {
-          console.log(result);
-          res.send(result);
-        }
-      });
-  } else {
-    q.getUserTasks('tasks',userId, curr_date, (err, result) => {
-        if (err) {
-          res.status(404).send({
-            message: 'Someting went wrong with database'
-          });
-        } else {
-          res.send(result);
-        }
-      });
-  }
+  q.getUserTasks('tasks',userId, curr_date, (err, result) => {
+      if (err) {
+        res.status(404).send({
+          message: 'Someting went wrong with database'
+        });
+      } else {
+        res.send(result);
+      }
+    });
 });
 
+app.get('/admin/:userId/:date', function(req, res) {
+  var userId = req.params.userId;
+  var curr_date = req.params.date;
+  q.getAllUsersTask(curr_date, (err, result) => {
+      if (err) {
+        console.log(err);
+        res.status(404).send({
+          message: 'Someting went wrong with database'
+        });
+      } else {
+        res.send(result);
+      }
+    });
+});
 // app.get('/home/:userId', function(req, res) {
 //
 // })

@@ -12,22 +12,27 @@ function getUser(userId, callback) {
 }
 
 function addNewUser(newUserObj, callback) {
-  console.log(newUserObj.userId);
-  db.any('INSERT INTO users(userId, name, displayPicture)'+
-  ' VALUES($1, $2, $3)',
-  [newUserObj.userId, newUserObj.name,
-    newUserObj.displayPicture])
-    .then((result) => {
-      callback(null, result);
-    })
-    .catch((err) => {
-      callback(err);
+  db.any('SELECT * FROM users WHERE userId = $1' , newUserObj.userId)
+  .then((result) => {
+    if(result.length == 0) {
+      db.any('INSERT INTO users(userId, name, displayPicture)'+
+      ' VALUES($1, $2, $3)',
+      [newUserObj.userId, newUserObj.name,
+        newUserObj.displayPicture])
+        .then((result) => {
+          callback(null, result);
+        })
+        .catch((err) => {
+          callback(err);
+        });
+      } else {
+        callback(null, result);
+      }
     });
-
-}
+  }
 
 function getUserTasks(tableName, id, curr_date, callback) {
-  db.any("SELECT * FROM "+ tableName + " WHERE userId = $1 AND taskDate = $2",
+  db.any("SELECT * FROM "+ tableName + " WHERE userId = $1 AND taskDate = $2 ORDER BY fromTime",
   [id, curr_date])
   .then((result) => {
     callback(null, result);
@@ -37,8 +42,12 @@ function getUserTasks(tableName, id, curr_date, callback) {
   });
 }
 
-function getAllUsers(tableName, curr_date, callback) {
-  db.any("SELECT * FROM "+ tableName + " WHERE taskDate= $1 ORDER BY fromTime" , [curr_date])
+function getAllUsersTask(curr_date, callback) {
+  console.log("inside getAllUsersTask");
+  db.any("SELECT users.userId, users.name, users.displayPicture, tasks.taskname, tasks.tasktype, tasks.taskdate, tasks.fromTime, tasks.toTime " +
+         "FROM users "+
+         "INNER JOIN tasks ON users.userId = tasks.userId " +
+         "WHERE taskDate= $1 ORDER BY fromTime" , [curr_date])
   .then((result) => {
     callback(null, result);
   })
@@ -88,7 +97,7 @@ function addNewTask(newTaskObj, callback) {
       getUser,
       addNewUser,
       getUserTasks,
-      getAllUsers,
+      getAllUsersTask,
       addNewTask,
       updateUserTask,
       deleteTask

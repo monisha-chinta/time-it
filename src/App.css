@@ -27,7 +27,7 @@ body {
   padding-top: 50px;
 }
 .starter-template {
-  padding-top: 80px;
+  padding-top: 20px;
 }
 
 .date-header-div {
@@ -40,8 +40,42 @@ body {
 
 .date-header {
   margin-top: 0;
+  margin-bottom: 15px;
 }
 
 .hide {
   display: none;
+}
+
+.navbar-profile-pic{
+  margin-top: 5px;
+}
+
+.action-button {
+  padding: 0px 4px;
+  border-color: transparent;
+}
+
+.time-picker {
+  max-height: 140px;
+  overflow-y: scroll;
+}
+
+.add-task-input{
+  width: 100% !important;
+  padding: 6px 6px;
+}
+
+.form-inline div {
+  padding-left: 2px;
+  padding-right: 4px;
+}
+
+.add-task-time{
+  /*padding-right: 0 !important ;*/
+}
+
+.add-task-form {
+  margin-left: 15px !important ;
+  margin-right: -50px !important ;
 }

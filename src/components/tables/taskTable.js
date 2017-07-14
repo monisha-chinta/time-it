@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import TaskRow from './taskRow';
+import TaskModal from '../modals/taskModal'
 
 class TaskTable extends Component {
   constructor(props) {
@@ -10,30 +11,38 @@ class TaskTable extends Component {
     this.props.handleDelete(userId, id);
   }
 
+  handleUpdateTask(task) {
+    this.refs.modal.close();
+    this.props.handleUpdate(task);
+  }
+
+  handleEditTask(task) {
+    this.refs.modal.open(task);
+  }
+
   render() {
     const {tasks, isToday} = this.props;
 
     var rows = tasks.map((task) => {
       return (
-        <TaskRow task={task} deleteTask={this.handleDeleteTask.bind(this)} isToday={isToday} />
+        <TaskRow task={task} deleteTask={this.handleDeleteTask.bind(this)} editTask={this.handleEditTask.bind(this)} isToday={isToday} />
       )
-    })
+    });
+
+    var nameHeader;
+    if(tasks.length > 0 && tasks[0].name) {
+      nameHeader = <th>User</th>
+    }
 
     return (
-      <table className="table table-hover">
-        <thead>
-          <tr>
-            <th>Task Name</th>
-            <th>Task Type</th>
-            <th>From</th>
-            <th>To</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          { rows }
-        </tbody>
-      </table>
+      <div>
+        <table className="table">
+          <tbody>
+            { rows }
+          </tbody>
+        </table>
+        <TaskModal ref="modal" updateTask={this.handleUpdateTask.bind(this)} />
+      </div>
     );
   }
 }

@@ -1,43 +1,70 @@
 import React, { Component } from 'react';
+import Task from '../../models/task';
+import TimePicker from './TimePicker';
 
 class AddTask extends Component {
   constructor(props) {
     super(props);
   }
-  addTask() {
-    let task = {
-      taskName: this.refs.task.value,
-      taskType: this.refs.type.value,
-      fromTime: this.refs.from.value,
-      toTime: this.refs.to.value
+  handleClick() {
+    console.log("inside handleClick");
+    if (this.props.handleAdd) {
+      let task = new Task(null, this.refs.task.value, this.refs.type.value, this.refs.from.getTime(), this.refs.to.getTime());
+      console.log(task);
+      console.log(task.value);
+      this.props.handleAdd(task.value);
+    } else if (this.props.handleEdit) {
+      let task = new Task(this.props.task.id, this.refs.task.value, this.refs.type.value, this.refs.from.getTime(), this.refs.to.getTime());
+      this.props.handleEdit(task.value);
     }
-    console.log(task);
-    this.props.handleAdd(task);
+  }
+
+  formTask() {
+    return {
+      taskname: '',
+      tasktype: '',
+      fromtime: '',
+      totime: ''
+    }
   }
 
   render() {
+    const task  = this.props.task || this.formTask();
+    var buttonText;
+    if (this.props.handleAdd) {
+      buttonText = 'Add Task';
+    } else if (this.props.handleEdit) {
+      buttonText = 'Update Task';
+    }
     return (
-      <div className="form-inline">
-        <div className="form-group">
+      <div className="form-inline row add-task-form">
+        <div className="form-group col-md-6">
           <label className="sr-only" for="task">Task</label>
-          <input type="text" ref="task" className="form-control" placeholder="Task" name="task" />
+          <input type="text" ref="task" defaultValue={task.taskname} className="form-control add-task-input" placeholder="Task" name="task" />
         </div>
-        <div className="form-group">
+        <div className="form-group col-md-2">
           <label className="sr-only" for="type">Type</label>
-          <input type="text" ref="type" className="form-control" placeholder="Type" name="type" />
+          <input type="text" ref="type" defaultValue={task.tasktype} className="form-control add-task-input" placeholder="Type" name="type" />
         </div>
-        <div className="form-group">
+        <div className="form-group col-md-1 add-task-time">
           <label className="sr-only" for="from">From</label>
-          <input type="text" ref="from" className="form-control" placeholder="From" name="from" />
+          <TimePicker defaultValue={task.fromtime} ref="from" />
         </div>
-        <div className="form-group">
+        <div className="form-group col-md-1 add-task-time">
           <label className="sr-only" for="to">To</label>
-          <input type="text" ref="to" className="form-control" placeholder="To" name="to" />
+          <TimePicker defaultValue={task.totime} ref="to" />
         </div>
-        <button onClick={this.addTask.bind(this)} className="btn btn-default">Add Task</button>
+        <div className="form-group col-md-1">
+          <button onClick={this.handleClick.bind(this)} className="btn btn-default">{ buttonText }</button>
+        </div>
       </div>
     );
   }
 }
+
+// <input type="text" ref="to" defaultValue={task.totime} className="form-control" placeholder="To" name="to" />
+
+// <input type="text" ref="from" defaultValue={task.fromtime} className="form-control" placeholder="From" name="from" />
+
 
 export default AddTask;

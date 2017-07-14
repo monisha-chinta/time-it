@@ -4,6 +4,8 @@ import { Provider } from 'react-redux';
 
 import IndexPage from './pages/indexPage';
 import HomePage from './pages/homePage';
+import AdminHomePage from './pages/admin/adminHomePage';
+import UsersTasksPage from './pages/admin/usersTasks';
 
 import store from './store';
 
@@ -18,6 +20,7 @@ class App extends Component {
           <Switch>
             <Route exact path={'/'} component={IndexPage}></Route>
             <Route path={'/home/:userId'} component={HomePage}></Route>
+            <Route path={'/admin/:userId/all'} component={UsersTasksPage}></Route>
           </Switch>
         </HashRouter>
       </Provider>
@@ -26,3 +29,5 @@ class App extends Component {
 }
 
 export default App;
+
+// <Route path={'/adminHome/:userId'} component={AdminHomePage}></Route>
