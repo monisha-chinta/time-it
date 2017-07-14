@@ -8,9 +8,22 @@ class AdminNavBar extends Component {
     FB.logout(function(response) {
       console.log(response);
     });
+    localStorage.removeItem('TimeIt-User');
+  }
+
+  openModal(e) {
+    e.preventDefault();
+    this.props.openModal();
   }
 
   render() {
+    var addTask;
+    if(this.props.showAddTask) {
+      addTask = <li><a href="#" onClick={ this.openModal.bind(this) }>Add Task</a></li>
+    }
+    var userid = this.props.user ? this.props.user.userid : '';
+    var displaypicture = this.props.user ? this.props.user.displaypicture : '';
+
     return (
       <nav className="navbar navbar-inverse navbar-fixed-top">
         <div className="container">
@@ -25,17 +38,18 @@ class AdminNavBar extends Component {
           </div>
           <div className="collapse navbar-collapse" id="navbar">
             <ul className="nav navbar-nav">
-              <li className="active"><Link to={'/home/'+this.props.user.userid}>My Tasks</Link></li>
+              <li className="active"><Link to={'/home/'+userid}>My Tasks</Link></li>
               <li className="dropdown">
                 <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Users<span className="caret"></span></a>
                 <ul className="dropdown-menu">
-                  <li><Link to={'/admin/'+this.props.user.userid+'/all'}>All Users</Link></li>
+                  <li><Link to={'/admin/'+userid+'/all'}>All Users</Link></li>
                   <li><a href="#">Get User</a></li>
                 </ul>
               </li>
             </ul>
             <ul className="nav navbar-nav navbar-right">
-              <li className="navbar-profile-pic"><img src={this.props.user.displaypicture} width={40} height={40} /></li>
+              { addTask }
+              <li className="navbar-profile-pic"><img src={displaypicture} width={40} height={40} /></li>
               <li>
                 <a href="#" onClick={ this.logout.bind(this) }>Logout</a>
               </li>

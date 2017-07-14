@@ -8,6 +8,7 @@ import TaskTable from '../components/tables/taskTable';
 import AddTask from '../components/forms/addTask';
 import UserNavBar from '../components/navbar/UserNavBar';
 import AdminNavBar from '../components/navbar/AdminNavBar';
+import TaskModal from '../components/modals/taskModal';
 
 class HomePage extends Component {
   constructor(props) {
@@ -21,9 +22,17 @@ class HomePage extends Component {
   }
 
   componentDidMount() {
-    console.log("inside HomePage componentWillMount");
-    this.props.dispatch({type: "FETCH_TASKS"});
-    this.props.dispatch(fetchTasks(this.state.userId, this.state.currentDate.format('YYYY-MM-DD')));
+    if(this.state.user) {
+      console.log("inside HomePage componentWillMount");
+      this.props.dispatch({type: "FETCH_TASKS"});
+      this.props.dispatch(fetchTasks(this.state.userId, this.state.currentDate.format('YYYY-MM-DD')));
+    } else {
+      this.props.history.push('/');
+    }
+  }
+
+  openModal() {
+    this.refs.modal.open();
   }
 
   loadPrevious() {
@@ -62,6 +71,8 @@ class HomePage extends Component {
          .catch((error) => {
            console.log(error);
          });
+    this.refs.modal.close();
+
   }
 
   handleUpdateTask(task) {
@@ -102,10 +113,10 @@ class HomePage extends Component {
 
     var navbar;
 
-    if(this.state.user.isAdmin) {
-        navbar = <AdminNavBar user={this.state.user} />
-    } else {
-        navbar = <UserNavBar user={this.state.user} />
+    if(this.state.user && this.state.user.isAdmin) {
+        navbar = <AdminNavBar showAddTask={true} user={this.state.user} openModal={this.openModal.bind(this)}  />
+    } else if(this.state.user) {
+        navbar = <UserNavBar user={this.state.user} openModal={this.openModal.bind(this)} />
     }
 
     const nextIconClass = flag ? 'hide' : '';
@@ -129,9 +140,6 @@ class HomePage extends Component {
                      <div className="col-md-12">
                         <TaskTable tasks={this.props.tasks} handleDelete={this.handleDeleteTask.bind(this)} handleUpdate={this.handleUpdateTask.bind(this)} isToday={flag} />
                      </div>
-                     <div className={'col-md-12 ' + showAddTaskClass}>
-                        <AddTask handleAdd={this.handleAddTask.bind(this)} />
-                     </div>
                    </div>
                  </div>
                  <div className={'col-md-1 center ' + nextIconClass} onClick={this.loadNext.bind(this)}>
@@ -139,6 +147,7 @@ class HomePage extends Component {
                  </div>
                </div>
              </div>
+             <TaskModal ref="modal" handleAction={this.handleAddTask.bind(this)} />
         </div>
       </div>
     );
@@ -153,3 +162,7 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps)(HomePage);
+
+// <div className={'col-md-12 ' + showAddTaskClass}>
+//    <AddTask handleAdd={this.handleAddTask.bind(this)} />
+// </div>

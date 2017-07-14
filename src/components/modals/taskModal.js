@@ -23,8 +23,8 @@ class TaskModal extends Component {
     });
   }
 
-  handleEditTask(task) {
-    this.props.updateTask(task);
+  handleAction(task) {
+    this.props.handleAction(task);
   }
 
   render() {
@@ -36,7 +36,7 @@ class TaskModal extends Component {
             <Modal.Title id="contained-modal-title-lg">Update</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <AddTask task={this.state.task} handleEdit={this.handleEditTask.bind(this)} />
+            <AddTask task={this.state.task} handleAction={this.handleAction.bind(this)} />
           </Modal.Body>
         </Modal>
       </div>

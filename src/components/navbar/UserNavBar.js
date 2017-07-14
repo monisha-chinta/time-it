@@ -7,7 +7,14 @@ class UserNavBar extends Component {
     FB.logout(function(response) {
       console.log(response);
     });
+    localStorage.removeItem('TimeIt-User');
   }
+
+  openModal(e) {
+    e.preventDefault();
+    this.props.openModal();
+  }
+
   render() {
     return (
       <nav className="navbar navbar-inverse navbar-fixed-top">
@@ -23,6 +30,9 @@ class UserNavBar extends Component {
           </div>
           <div id="navbar" className="collapse navbar-collapse">
             <ul className="nav navbar-nav navbar-right">
+              <li>
+                <a href="#" onClick={ this.openModal.bind(this) }>Add Task</a>
+              </li>
               <li className="navbar-profile-pic"><img src={this.props.user.displaypicture} width={25} height={25} /></li>
               <li>
                 <a href="#" onClick={ this.logout.bind(this) }>Logout</a>

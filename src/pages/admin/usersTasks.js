@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-
-
 import * as moment from 'moment/moment';
 
 import { fetchAllUsersTasks } from '../../actions/tasksAction';
@@ -21,9 +19,13 @@ class UsersTasksPage extends Component {
   }
 
   componentDidMount() {
-    console.log("inside HomePage componentWillMount");
-    this.props.dispatch({type: "FETCH_USERS_TASKS"});
-    this.props.dispatch(fetchAllUsersTasks(this.state.userId, this.state.currentDate.format('YYYY-MM-DD')));
+    if(this.state.user && this.state.user.isAdmin) {
+      console.log("inside HomePage componentWillMount");
+      this.props.dispatch({type: "FETCH_USERS_TASKS"});
+      this.props.dispatch(fetchAllUsersTasks(this.state.userId, this.state.currentDate.format('YYYY-MM-DD')));
+    } else {
+      this.props.history.push('/');
+    }
   }
 
   logout() {
@@ -67,14 +69,16 @@ class UsersTasksPage extends Component {
     let curr = this.state.currentDate.format('YYYY-MM-DD');
     let flag = moment(today).isSame(curr);
 
+    const nextIconClass = flag ? 'hide' : '';
+
     return (
       <div>
-        <AdminNavBar user={this.state.user}/>
+        <AdminNavBar user={this.state.user} showAddTask={false}/>
         <div className="container">
              <div className="starter-template">
                <div className="row">
                  <div className="col-md-1" onClick={this.loadPrevious.bind(this)}>
-                   <span><i className="fa fa-chevron-left" aria-hidden="true"></i> Prev</span>
+                   <span><i className="fa fa-caret-left fa-4x" aria-hidden="true"></i></span>
                  </div>
                  <div className="col-md-10">
                    <div className="row">
@@ -86,8 +90,8 @@ class UsersTasksPage extends Component {
                      </div>
                    </div>
                  </div>
-                 <div className="col-md-1" onClick={this.loadNext.bind(this)} className={flag ? 'hide' : ''}>
-                   <span>Next <i className="fa fa-chevron-right" aria-hidden="true"></i></span>
+                 <div className={'col-md-1 ' + nextIconClass} onClick={this.loadNext.bind(this)} className={flag ? 'hide' : ''}>
+                   <span><i className="fa fa-caret-right fa-4x" aria-hidden="true"></i></span>
                  </div>
                </div>
              </div>
