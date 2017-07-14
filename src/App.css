@@ -79,3 +79,7 @@ body {
   margin-left: 15px !important ;
   margin-right: -50px !important ;
 }
+
+.center {
+  text-align: center;
+}

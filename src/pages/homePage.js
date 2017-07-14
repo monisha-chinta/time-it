@@ -108,14 +108,18 @@ class HomePage extends Component {
         navbar = <UserNavBar user={this.state.user} />
     }
 
+    const nextIconClass = flag ? 'hide' : '';
+    const showAddTaskClass = !flag ? 'hide' : '';
+
+
     return (
       <div>
         {navbar}
         <div className="container">
              <div className="starter-template">
                <div className="row">
-                 <div className="col-md-1" onClick={this.loadPrevious.bind(this)}>
-                   <span><i className="fa fa-chevron-left" aria-hidden="true"></i> Prev</span>
+                 <div className="col-md-1 center" onClick={this.loadPrevious.bind(this)}>
+                   <span><i className="fa fa-caret-left fa-4x" aria-hidden="true"></i></span>
                  </div>
                  <div className="col-md-10">
                    <div className="row">
@@ -125,13 +129,13 @@ class HomePage extends Component {
                      <div className="col-md-12">
                         <TaskTable tasks={this.props.tasks} handleDelete={this.handleDeleteTask.bind(this)} handleUpdate={this.handleUpdateTask.bind(this)} isToday={flag} />
                      </div>
-                     <div className="col-md-12" className={!flag ? 'hide' : ''}>
+                     <div className={'col-md-12 ' + showAddTaskClass}>
                         <AddTask handleAdd={this.handleAddTask.bind(this)} />
                      </div>
                    </div>
                  </div>
-                 <div className="col-md-1" onClick={this.loadNext.bind(this)} className={flag ? 'hide' : ''}>
-                   <span>Next <i className="fa fa-chevron-right" aria-hidden="true"></i></span>
+                 <div className={'col-md-1 center ' + nextIconClass} onClick={this.loadNext.bind(this)}>
+                   <span><i className="fa fa-caret-right fa-4x" aria-hidden="true"></i></span>
                  </div>
                </div>
              </div>
