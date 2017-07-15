@@ -21,8 +21,13 @@ class HomePage extends Component {
 
   }
 
+  checkUser(urlUserId, userId) {
+    return urlUserId == userId;
+  }
+
   componentDidMount() {
-    if(this.state.user) {
+    if(this.state.user
+      && this.checkUser(this.state.userId, this.state.user.userid)) {
       this.props.dispatch({type: "FETCH_TASKS"});
       this.props.dispatch(fetchTasks(this.state.userId, this.state.currentDate.format('YYYY-MM-DD')));
     } else {

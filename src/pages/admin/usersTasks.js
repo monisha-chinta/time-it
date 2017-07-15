@@ -18,11 +18,16 @@ class UsersTasksPage extends Component {
       currentDate: moment(),
       tasks: props.tasks
     }
+  }
 
+  checkUser(urlUserId, userId) {
+    return urlUserId == userId;
   }
 
   componentDidMount() {
-    if(this.state.user && this.state.user.isAdmin) {
+    if(this.state.user
+       && this.state.user.isAdmin
+       && this.checkUser(this.state.userId, this.state.user.userid)) {
       this.props.dispatch({type: "FETCH_USERS_TASKS"});
       this.props.dispatch(fetchAllUsersTasks(this.state.userId, this.state.currentDate.format('YYYY-MM-DD')));
     } else {
