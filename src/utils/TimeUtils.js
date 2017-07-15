@@ -14,10 +14,10 @@ export function formatFromTo(from, to) {
 
 export function compareTime(from, to) {
   var f = moment(from, ["hh:mma"])
-  console.log(f);
-
   var t = moment(to, ["hh:mma"])
-  console.log(t);
-  console.log(f.isAfter(t));
   return f.isAfter(t);
+}
+
+export function checkTimeFormat(time) {
+  return time.match(/^(0?[1-9]|1[012])(:[0-5]\d)[APap][mM]$/);
 }

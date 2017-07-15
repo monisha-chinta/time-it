@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Task from '../../models/task';
 import TimePicker from './TimePicker';
 import TextInput from './TextInput';
-import { compareTime } from '../../utils/TimeUtils';
+import { compareTime, checkTimeFormat } from '../../utils/TimeUtils';
 
 class AddTask extends Component {
   constructor(props) {
@@ -31,6 +31,10 @@ class AddTask extends Component {
        return 'Task must be less than 255 characters';
      } else if(task.taskType.length > 24) {
        return 'Tag must be less than 24 characters';
+     } else if(!checkTimeFormat(task.fromTime)) {
+        return 'From time must be of proper time format'
+     } else if(!checkTimeFormat(task.toTime)) {
+        return 'To time must be of proper time format'
      } else if(compareTime(task.fromTime, task.toTime)) {
        return 'From time must be less than to time';
      }

@@ -68,9 +68,6 @@ class TimePicker extends Component {
         time: text
       })
     }
-    // this.setState({
-    //   time : text
-    // });
   }
 
   render() {

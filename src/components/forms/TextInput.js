@@ -36,7 +36,6 @@ class TextInput extends Component {
   }
 
   resetValue() {
-    console.log("inside reset value");
     this.setState({
       value: ''
     });

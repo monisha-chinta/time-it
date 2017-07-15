@@ -23,7 +23,6 @@ class UsersTasksPage extends Component {
 
   componentDidMount() {
     if(this.state.user && this.state.user.isAdmin) {
-      console.log("inside HomePage componentWillMount");
       this.props.dispatch({type: "FETCH_USERS_TASKS"});
       this.props.dispatch(fetchAllUsersTasks(this.state.userId, this.state.currentDate.format('YYYY-MM-DD')));
     } else {
@@ -35,7 +34,6 @@ class UsersTasksPage extends Component {
     const FB = window.FB;
 
     FB.logout(function(response) {
-      console.log(response);
     });
   }
 
@@ -81,18 +79,12 @@ class UsersTasksPage extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log("inside componentWillReceiveProps***********");
-    console.log(nextProps);
     this.setState({
       tasks: nextProps.tasks
     });
   }
 
   render() {
-    console.log("inside users task render");
-    console.log(this.state.userId);
-    console.log(this.state.tasks);
-
     let today = moment().format('YYYY-MM-DD');
     let curr = this.state.currentDate.format('YYYY-MM-DD');
     let flag = moment(today).isSame(curr);

@@ -19,7 +19,6 @@ class TaskModal extends Component {
   open(task) {
     this.setState({
       show: true
-      // task: task
     });
   }
 
@@ -28,7 +27,6 @@ class TaskModal extends Component {
   }
 
   render() {
-    console.log(this.props.task);
     return (
       <div>
         <Modal show={this.state.show} onHide={this.close.bind(this)} bsSize="large">

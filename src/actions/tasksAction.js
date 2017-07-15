@@ -5,7 +5,6 @@ export function fetchTasks(userId, date) {
     var url = 'http://localhost:3001/home/'+userId+'/'+date;
     axios.get(url)
          .then((response) => {
-           console.log(response);
            dispatch({type: "FETCH_TASKS_FULFILLED", payload: response.data})
          })
          .catch((error) => {
@@ -34,7 +33,6 @@ export function fetchAllUsersTasks(userId, date) {
     var url = 'http://localhost:3001/admin/'+userId+'/'+date;
     axios.get(url)
          .then((response) => {
-           console.log(response);
            dispatch({type: "FETCH_USERS_TASKS_FULFILLED", payload: response.data})
          })
          .catch((error) => {

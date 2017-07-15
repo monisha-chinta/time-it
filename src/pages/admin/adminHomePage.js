@@ -15,11 +15,9 @@ class AdminHomePage extends Component {
       userId: props.location.pathname.split('/')[2],
       currentDate: moment()
     }
-
   }
 
   componentDidMount() {
-    console.log("inside HomePage componentWillMount");
     this.props.dispatch({type: "FETCH_TASKS"});
     this.props.dispatch(fetchTasks(this.state.userId, this.state.currentDate.format('YYYY-MM-DD')));
   }
@@ -49,11 +47,8 @@ class AdminHomePage extends Component {
   }
 
   handleAddTask(task) {
-    console.log("In home page handleAddTask");
     addTask(this.state.userId, task)
          .then((response) => {
-           console.log("POST success");
-           console.log(response);
            this.props.dispatch({type: "FETCH_TASKS"});
            this.props.dispatch(fetchTasks(this.state.userId, this.state.currentDate.format('YYYY-MM-DD')));
          })
@@ -65,8 +60,6 @@ class AdminHomePage extends Component {
   handleDeleteTask(userId, id) {
     deleteTask(userId, id)
         .then((response) => {
-          console.log("delete success");
-          console.log(response);
           this.props.dispatch({type: "FETCH_TASKS"});
           this.props.dispatch(fetchTasks(this.state.userId, this.state.currentDate.format('YYYY-MM-DD')));
         })
@@ -76,9 +69,6 @@ class AdminHomePage extends Component {
   }
 
   render() {
-    console.log(this.state.userId);
-    console.log(this.props.tasks);
-
     let today = moment().format('YYYY-MM-DD');
     let curr = this.state.currentDate.format('YYYY-MM-DD');
     let flag = moment(today).isSame(curr);

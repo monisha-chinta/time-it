@@ -29,5 +29,3 @@ class App extends Component {
 }
 
 export default App;
-
-// <Route path={'/adminHome/:userId'} component={AdminHomePage}></Route>
