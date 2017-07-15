@@ -54,10 +54,10 @@ function getAllUsersTask(curr_date, callback) {
 }
 
 function addNewTask(newTaskObj, callback) {
-  db.any('INSERT INTO tasks(userId, taskName, taskType, fromTime, toTime)'+
-         ' VALUES($1, $2, $3, $4, $5)',
+  db.any('INSERT INTO tasks(userId, taskName, taskType, taskdate, fromTime, toTime)'+
+         ' VALUES($1, $2, $3, $4, $5, $6)',
          [newTaskObj.userId, newTaskObj.taskName, newTaskObj.taskType,
-         newTaskObj.fromTime, newTaskObj.toTime])
+         newTaskObj.taskDate, newTaskObj.fromTime, newTaskObj.toTime])
     .then((result) => {
       callback(null, result);
     })
