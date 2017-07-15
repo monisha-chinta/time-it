@@ -12,7 +12,6 @@ app.get('/user/:userId', function(req, res) {
         message: 'Someting went wrong with database'
       });
     } else {
-      // console.log(result.length);
       if(result.length == 0) {
         return res.send("");
       }
@@ -22,8 +21,6 @@ app.get('/user/:userId', function(req, res) {
 });
 
 app.post('/user', function(req, res) {
-  console.log("in post");
-  console.log(req.body);
   const newUser = {
     userId: req.body.userId,
     name: req.body.name,
@@ -70,9 +67,7 @@ app.get('/admin/:userId/:date', function(req, res) {
       }
     });
 });
-// app.get('/home/:userId', function(req, res) {
-//
-// })
+
 app.post('/home/:userId', function(req, res) {
   const newTask = {
     userId: req.params.userId,

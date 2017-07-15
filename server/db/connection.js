@@ -1,15 +1,15 @@
-const options = {}; // add options here
+const options = {};
 const pgp = require('pg-promise')(options);
 
-// Database connection details;
+// Database connection:
 const cn = {
-  host: 'localhost', // 'localhost' is the default;
-  port: 1234, // 5432 is the default;
+  host: 'localhost',
+  port: 1234,
   user: 'postgres',
   password: '152hsrdev',
   database: 'timeit'
 };
 
-const db = pgp(cn); // database instance;
+const db = pgp(cn);
 
 module.exports = db;
