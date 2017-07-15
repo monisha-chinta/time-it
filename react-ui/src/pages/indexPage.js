@@ -6,7 +6,8 @@ import { addUser } from '../actions/userAction';
 class IndexPage extends Component {
 
   componentDidMount() {
-    var user = JSON.parse(localStorage.getItem('TimeIt-User'));
+    var localUser = localStorage.getItem('TimeIt-User');
+    var user = localUser ? JSON.parse(localUser) : null;
     if(user) {
       this.props.history.push('/home/' + user.userid);
     }
