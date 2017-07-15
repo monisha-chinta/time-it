@@ -47,7 +47,6 @@ export function getTimeRange() {
     '10:00pm',
     '10:30pm',
     '11:00pm',
-    '11:30pm',
-    '12:00pm'
+    '11:30pm'
   ]
 }
