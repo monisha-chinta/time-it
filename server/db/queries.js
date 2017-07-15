@@ -11,22 +11,21 @@ function getUser(userId, callback) {
 }
 
 function addNewUser(newUserObj, callback) {
-  db.any('SELECT * FROM users WHERE userId = $1' , newUserObj.userId)
-  .then((result) => {
-  if(result.length == 0) {
-    db.any('INSERT INTO users(userId, name, displayPicture)'+
-           ' VALUES($1, $2, $3)',
-           [newUserObj.userId, newUserObj.name, newUserObj.displayPicture])
+  db.task(t => {
+    return t.one('INSERT INTO users(userId, name, displayPicture)'+
+                 ' VALUES($1, $2, $3) RETURNING *',
+                 [newUserObj.userId, newUserObj.name, newUserObj.displayPicture]);
+  }).then(events => {
+    callback(null, events);
+  }).catch(error => {
+    db.any('SELECT * FROM users WHERE userId = $1' , newUserObj.userId)
       .then((result) => {
         callback(null, result);
       })
       .catch((err) => {
         callback(err);
       });
-    } else {
-      callback(null, result);
-    }
-  });
+  })
 }
 
 function getUserTasks(tableName, id, curr_date, callback) {
