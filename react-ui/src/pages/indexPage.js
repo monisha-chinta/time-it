@@ -19,12 +19,8 @@ class IndexPage extends Component {
       if (loginResponse.status === 'connected') {
         FB.api("https://graph.facebook.com/"+loginResponse.authResponse.userID+"?fields=id,name,email,picture", function(response){
           addUser(response).then((res) => {
-            window.timeitUser = {
-              userid: response.id,
-              name: response.name,
-              displaypicture: response.picture.data.url
-            };
-            that.props.history.push('/home/' + response.id);
+            window.timeitUser = res.data[0];
+            that.props.history.push('/home/' + res.data[0].userid);
           })
           .catch((error) => {
             console.log(error);
