@@ -84,7 +84,7 @@ class TimePicker extends Component {
         <label className="sr-only" for="to">To</label>
         <div className="dropdown">
           <input type="text" defaultValue={this.state.time}
-                 value={this.state.time}
+                 value={this.state.time} placeholder={this.props.text}
                  className="form-control dropdown-toggle add-task-input"
                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                  onChange={this.onChange.bind(this)}

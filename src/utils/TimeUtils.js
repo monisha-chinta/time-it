@@ -11,3 +11,13 @@ export function formatFromTo(from, to) {
   var t = formatTime(to);
   return f + ' - ' + t;
 }
+
+export function compareTime(from, to) {
+  var f = moment(from, ["hh:mma"])
+  console.log(f);
+
+  var t = moment(to, ["hh:mma"])
+  console.log(t);
+  console.log(f.isAfter(t));
+  return f.isAfter(t);
+}

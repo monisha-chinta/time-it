@@ -6,6 +6,8 @@ import * as moment from 'moment/moment';
 import { fetchAllUsersTasks } from '../../actions/tasksAction';
 import TaskTable from '../../components/tables/taskTable';
 import AdminNavBar from '../../components/navbar/AdminNavBar';
+import SortDropdown from '../../components/helpers/SortDropdown';
+import { sortByTime, sortByUser } from '../../utils/SortUtils';
 
 class UsersTasksPage extends Component {
   constructor(props) {
@@ -13,7 +15,8 @@ class UsersTasksPage extends Component {
     this.state = {
       userId: props.location.pathname.split('/')[2],
       user: JSON.parse(localStorage.getItem('TimeIt-User')),
-      currentDate: moment()
+      currentDate: moment(),
+      tasks: props.tasks
     }
 
   }
@@ -60,10 +63,35 @@ class UsersTasksPage extends Component {
     return moment(today).isSame(curr);
   }
 
+  handleSortByTime() {
+    let tasks = this.state.tasks;
+    tasks.sort(sortByTime);
+    this.setState({
+      tasks: tasks
+    })
+  }
+
+  handleSortByUser() {
+    let tasks = this.state.tasks;
+    tasks.sort(sortByUser);
+
+    this.setState({
+      tasks: tasks
+    })
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log("inside componentWillReceiveProps***********");
+    console.log(nextProps);
+    this.setState({
+      tasks: nextProps.tasks
+    });
+  }
+
   render() {
     console.log("inside users task render");
     console.log(this.state.userId);
-    console.log(this.props.tasks);
+    console.log(this.state.tasks);
 
     let today = moment().format('YYYY-MM-DD');
     let curr = this.state.currentDate.format('YYYY-MM-DD');
@@ -82,11 +110,14 @@ class UsersTasksPage extends Component {
                  </div>
                  <div className="col-md-10">
                    <div className="row">
-                     <div className="col-md-12 date-header-div">
+                     <div className="col-md-11 date-header-div">
                        <h2 className="date-header">{ this.state.currentDate.format('dddd, MMMM Do YYYY') }</h2>
                      </div>
+                     <div className="col-md-1">
+                      <SortDropdown handleSortByTime={this.handleSortByTime.bind(this)} handleSortByUser={this.handleSortByUser.bind(this)} />
+                     </div>
                      <div className="col-md-12 center">
-                        <TaskTable tasks={this.props.tasks} />
+                        <TaskTable tasks={this.state.tasks} />
                      </div>
                    </div>
                  </div>
