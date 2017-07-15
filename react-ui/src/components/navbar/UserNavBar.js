@@ -7,7 +7,7 @@ class UserNavBar extends Component {
 
     FB.logout(function(response) {
     });
-    localStorage.removeItem('TimeIt-User');
+    window.timeitUser = null;
   }
 
   openModal(e) {

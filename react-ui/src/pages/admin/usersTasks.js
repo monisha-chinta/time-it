@@ -14,7 +14,7 @@ class UsersTasksPage extends Component {
     super(props);
     this.state = {
       userId: props.location.pathname.split('/')[2],
-      user: JSON.parse(localStorage.getItem('TimeIt-User')),
+      user: window.timeitUser,
       currentDate: moment(),
       tasks: props.tasks
     }
