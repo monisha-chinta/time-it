@@ -6,3 +6,6 @@ npm-debug.log
 *.env
 *.dev
 .DS_Store
+
+# Do not push local db connections to heroku
+./server/db/connection.js

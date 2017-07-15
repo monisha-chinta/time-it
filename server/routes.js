@@ -73,6 +73,7 @@ app.post('/home/:userId', function(req, res) {
     userId: req.params.userId,
     taskName: req.body.taskName,
     taskType: req.body.taskType,
+    taskDate: req.body.taskDate,
     fromTime: req.body.fromTime,
     toTime: req.body.toTime
   };
