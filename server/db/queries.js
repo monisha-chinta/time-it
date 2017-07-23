@@ -20,7 +20,7 @@ function addNewUser(newUserObj, callback) {
   }).catch(error => {
     db.any('SELECT * FROM users WHERE userId = $1' , newUserObj.userId)
       .then((result) => {
-        callback(null, result);
+        callback(null, result[0]);
       })
       .catch((err) => {
         callback(err);

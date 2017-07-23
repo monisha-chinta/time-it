@@ -6,8 +6,9 @@ import { addUser } from '../actions/userAction';
 class IndexPage extends Component {
 
   componentDidMount() {
-    if(window.timeitUser) {
-      this.props.history.push('/home/' + window.timeitUser.userid);
+    var user = JSON.parse(localStorage.getItem('timeitUser'));
+    if(user) {
+      this.props.history.push('/home/' + user.userid);
     }
   }
 
@@ -19,8 +20,11 @@ class IndexPage extends Component {
       if (loginResponse.status === 'connected') {
         FB.api("https://graph.facebook.com/"+loginResponse.authResponse.userID+"?fields=id,name,email,picture", function(response){
           addUser(response).then((res) => {
-            window.timeitUser = res.data[0];
-            that.props.history.push('/home/' + res.data[0].userid);
+            // Save user data to the current local store
+            localStorage.setItem("timeitUser", JSON.stringify(res.data));
+
+            var user = JSON.parse(localStorage.getItem('timeitUser'));
+            that.props.history.push('/home/' + user.userid);
           })
           .catch((error) => {
             console.log(error);

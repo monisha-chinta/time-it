@@ -15,7 +15,7 @@ class HomePage extends Component {
     super(props);
     this.state = {
       userId: props.location.pathname.split('/')[2],
-      user: window.timeitUser,
+      user: localStorage.getItem('timeitUser') ? JSON.parse(localStorage.getItem('timeitUser')) : null,
       currentDate: moment()
     }
 

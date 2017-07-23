@@ -7,7 +7,7 @@ class AdminNavBar extends Component {
 
     FB.logout(function(response) {
     });
-    window.timeitUser = null;
+    localStorage.removeItem('timeitUser');
   }
 
   openModal(e) {
